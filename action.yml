@@ -1,6 +1,10 @@
 name: 'Swift WASM SDK Setup'
 author: 'Steffan Andrews'
 description: 'Prepare the Swift WebAssembly (WASM) SDK for building Swift packages.'
+inputs:
+  target-triple:
+    description: 'The target triple that will be used when building the Swift package. This is needed during the SDK setup process.'
+    required: true
 
 outputs:
   id:
@@ -50,6 +54,7 @@ runs:
       run: $GITHUB_ACTION_PATH/scripts/sdk-verify.sh
       env:
         SDK_ID: ${{ steps.sdk-info.outputs.id }}
+        TARGET_TRIPLE: ${{ inputs.target-triple }}
 
 branding:
   icon: 'code'
