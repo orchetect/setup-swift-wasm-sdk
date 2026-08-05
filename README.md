@@ -10,7 +10,9 @@ This action downloads the appropriate Swift WASM SDK for the version of Swift in
 
 ## Input Parameters
 
-The action does not have any input parameters.
+| Name            | Required | Description                                                  |
+| --------------- | :------: | ------------------------------------------------------------ |
+| `target-triple` |   Yes    | The target triple that will be used when building the Swift package. This is needed during the SDK setup process. |
 
 ## Output Parameters
 
@@ -26,12 +28,15 @@ The action outputs the following parameters:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TARGET_TRIPLE: wasm32-unknown-wasip1
     steps:
     - uses: actions/checkout@main
     - uses: orchetect/setup-swift-wasm-sdk@v1
-      id: sdk-setup
+      with:
+        target-triple: ${{ env.TARGET_TRIPLE }}
     - name: Build Package
-    - run: swift build --swift-sdk "$SDK_ID"
+    - run: swift build --swift-sdk "$SDK_ID" --triple "$TARGET_TRIPLE"
       env:
         SDK_ID: ${{ steps.sdk-setup.outputs.id }}
 ```
