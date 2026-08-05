@@ -33,6 +33,7 @@ jobs:
     steps:
     - uses: actions/checkout@main
     - uses: orchetect/setup-swift-wasm-sdk@v1
+      id: sdk-setup
       with:
         target-triple: ${{ env.TARGET_TRIPLE }}
     - name: Build Package
