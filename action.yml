@@ -1,0 +1,56 @@
+name: 'Swift WASM SDK Setup'
+author: 'Steffan Andrews'
+description: 'Prepare the Swift WebAssembly (WASM) SDK for building Swift packages.'
+
+outputs:
+  id:
+    description: "SDK ID"
+    value: ${{ steps.id-finder.outputs.id }}
+  url:
+    description: "SDK URL"
+    value: ${{ steps.id-finder.outputs.platform }}
+  checksum:
+    description: "SDK checksum"
+    value: ${{ steps.id-finder.outputs.platform-short }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get Swift Version
+      id: swift-version
+      shell: bash
+      run: $GITHUB_ACTION_PATH/scripts/swift-ver.sh
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+      # outputs:
+      #   swift-version
+      
+    - name: Prepare SDK Info
+      id: sdk-info
+      shell: bash
+      run: $GITHUB_ACTION_PATH/scripts/sdk-info.sh
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+        SWIFT_VERSION: ${{ steps.swift-version.outputs.swift-version }}
+      # outputs:
+      #   id
+      #   url
+      #   checksum
+        
+    - name: Install WASM SDK for Swift
+      shell: bash
+      run: swift sdk install "$SDK_URL" --checksum "$SDK_CHECKSUM"
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+        SDK_URL: ${{ steps.sdk-info.outputs.url }}
+        SDK_CHECKSUM: ${{ steps.sdk-info.outputs.checksum }}
+
+    - name: Verify SDK
+      shell: bash
+      run: $GITHUB_ACTION_PATH/scripts/sdk-verify.sh
+      env:
+        SDK_ID: ${{ steps.sdk-info.outputs.id }}
+
+branding:
+  icon: 'code'
+  color: 'blue'
