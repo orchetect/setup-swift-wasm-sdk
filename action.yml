@@ -9,13 +9,13 @@ inputs:
 outputs:
   id:
     description: "SDK ID"
-    value: ${{ steps.id-finder.outputs.id }}
+    value: ${{ steps.sdk-info.outputs.id }}
   url:
     description: "SDK URL"
-    value: ${{ steps.id-finder.outputs.platform }}
+    value: ${{ steps.sdk-info.outputs.platform }}
   checksum:
     description: "SDK checksum"
-    value: ${{ steps.id-finder.outputs.platform-short }}
+    value: ${{ steps.sdk-info.outputs.platform-short }}
 
 runs:
   using: "composite"
