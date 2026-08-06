@@ -37,7 +37,7 @@ jobs:
       with:
         target-triple: ${{ env.TARGET_TRIPLE }}
     - name: Build Package
-    - run: swift build --swift-sdk "$SDK_ID" --triple "$TARGET_TRIPLE"
+      run: swift build --swift-sdk "$SDK_ID" --triple "$TARGET_TRIPLE"
       env:
         SDK_ID: ${{ steps.sdk-setup.outputs.id }}
 ```
