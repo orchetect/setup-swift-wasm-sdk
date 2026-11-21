@@ -51,6 +51,10 @@ case $SWIFT_VERSION in
     SDK_ID="swift-6.4.2-RELEASE_wasm"
     SDK_URL="https://download.swift.org/swift-6.4.2-release/wasm-sdk/swift-6.4.2-RELEASE/swift-6.4.2-RELEASE_wasm.artifactbundle.tar.gz"
     SDK_CHECKSUM="83baca83553f8c443cda7b84800912e6e709c3acd2e7ebf277794ca5836c0da5" ;;
+  6.4.3)
+    SDK_ID="swift-6.4.3-RELEASE_wasm"
+    SDK_URL="https://download.swift.org/swift-6.4.3-release/wasm-sdk/swift-6.4.3-RELEASE/swift-6.4.3-RELEASE_wasm.artifactbundle.tar.gz"
+    SDK_CHECKSUM="5f24408dc9737ce4cb23b7e3ed4306cabfa02cc02f22ab260b14579b955d4b12" ;;
   *)
     echo "⛔️ Error: Unhandled Swift version: $SWIFT_VERSION. Please update script with URL and checksum for this version."
     exit 1 ;;
